@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
 		m_PlayerRigidbody.MovePosition(m_NewPosition);
 		float rightStickX = XCI.GetAxis(XboxAxis.RightStickX, m_ThisController);
 		float rightStickY = XCI.GetAxis(XboxAxis.RightStickY, m_ThisController);
-		m_LookTarget.localPosition = new Vector2(rightStickX, Mathf.Clamp(rightStickY,0 , 100));
+		m_LookTarget.localPosition = new Vector2(rightStickX, rightStickY/*Mathf.Clamp(rightStickY,0 , 100)*/);
 		//m_Arms.transform.LookAt(m_LookTarget);
 		Vector2 direction = new Vector2(m_LookTarget.position.x - m_Arms.position.x, m_LookTarget.position.y - m_Arms.position.y);
 		m_Arms.right = direction;
