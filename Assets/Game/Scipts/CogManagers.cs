@@ -13,29 +13,27 @@ public class CogManagers : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-		if (!victory)
+		for (int i = 0; i < m_CogHolders.Count; i++)
 		{
-			for (int i = 0; i < m_CogHolders.Count; i++)
+			if (m_CogHolders[i].m_HeldCogWheel != null)
 			{
-				if (m_CogHolders[i].m_HeldCogWheel != null)
-				{
-					m_CogHolders[i].m_HeldCogWheel.transform.Rotate(0, 0, m_RotateBy);
-				if (m_CogHolders[i].m_CorrectSize == m_CogHolders[i].m_HeldCogWheel.m_CogSize)
-					{
-						m_CorrectPlace++;
-					}
-				}
+				m_CogHolders[i].m_HeldCogWheel.transform.Rotate(0, 0, m_RotateBy);
 			}
-			if(m_CorrectPlace >= m_CogHolders.Count)
+			if (m_CogHolders[i].m_Correct)
 			{
-				victory = true;
-			}
-			else
-			{
-				m_CorrectPlace = 0;
+					m_CorrectPlace++;
 			}
 		}
-		
+		Debug.Log(m_CorrectPlace);
+		if (m_CorrectPlace >= m_CogHolders.Count)
+		{
+			victory = true;
+			m_CorrectPlace = 0;
+		}
+		else
+		{
+			m_CorrectPlace = 0;
+			victory = false;
+		}
     }
 }

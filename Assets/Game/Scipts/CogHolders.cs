@@ -6,14 +6,25 @@ public class CogHolders : MonoBehaviour
 {
 	public float m_CorrectSize;
 	public CogWheels m_HeldCogWheel;
+	public bool m_Correct;
 	private bool m_CurrentlyHolding;
 	private Rigidbody2D m_CogRigidbody;
+
+
 	private void Update()
 	{
-		if (m_CurrentlyHolding == true && m_HeldCogWheel.m_Grabbable.m_PickedUp == false && m_HeldCogWheel.m_CurrentlyHeld == false)
+		if (m_CurrentlyHolding == true && (m_HeldCogWheel.m_ExampleCog == true ||m_HeldCogWheel.m_Grabbable.m_PickedUp == false) && m_HeldCogWheel.m_CurrentlyHeld == false)
 		{
 			m_HeldCogWheel.gameObject.transform.position = transform.position;
 			m_HeldCogWheel.m_CurrentlyHeld = true;
+		}
+		if(m_HeldCogWheel != null &&  m_CorrectSize == m_HeldCogWheel.m_CogSize)
+		{
+			m_Correct = true;
+		}
+		else
+		{
+			m_Correct = false;
 		}
 	}
 
@@ -25,10 +36,15 @@ public class CogHolders : MonoBehaviour
 			{
 				m_HeldCogWheel = collision.gameObject.GetComponent<CogWheels>();
 				m_CogRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
-				if (m_HeldCogWheel.m_Grabbable.m_PickedUp == false)
+				if (m_HeldCogWheel.m_ExampleCog == true || m_HeldCogWheel.m_Grabbable.m_PickedUp == false)
 				{
 					Freeze();
 					m_CurrentlyHolding = true;
+				}
+				else
+				{
+					m_HeldCogWheel = null;
+					m_CogRigidbody = null;
 				}
 			}
 		}
